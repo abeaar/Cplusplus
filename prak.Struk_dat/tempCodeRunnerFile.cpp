@@ -1,0 +1,2 @@
+
+typedef struct typenode *typeptr;
