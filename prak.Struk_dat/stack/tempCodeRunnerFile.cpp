@@ -1,0 +1,2 @@
+
+        int banyak=0;

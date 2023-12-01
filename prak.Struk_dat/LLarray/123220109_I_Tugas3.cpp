@@ -148,58 +148,84 @@ do{
 }
 
 void hapusnode(int IH)
-{int listbaru,k;
-	cout << setw (43) << setfill ('=') << ' ' << endl;
-	cout << "|" << setw (6) <<  setfill (' ') << ' ' << "SELAMAT DATANG DI MENU HAPUS" << setw (6) <<  setfill (' ') << ' ' << "|" << endl ;
-	cout << setw (43) << setfill ('=') << ' ' << endl;
-  cout << " Masukan angka : "; cin >> IH;
- //------------------------ hapus di awal
- if(IH==elemen[list].info)
- {listbaru=elemen[list].next;
-  k=kosong;
-  kosong=list;
-  list=listbaru;
-  elemen[kosong].next=k;
-  }
-  //------------------hapus di akhir
- else if(IH==elemen[akhirlist].info)
-  {
-    elemen[akhirlist].next = kosong;
-    kosong = akhirlist;
-    elemen[akhirlist].info = 0;
-    for (int i=1;i<=10;i++){
-      if (elemen[i].next==akhirlist) {
-      akhirlist = i;
-      elemen[akhirlist].next =0;
-      break;
-    }
-  }
-  //------------------hapus di tengah
- } else {
-  int index, m,l;
-  bool check = false;
-  
-  for (index=list; check==false;)
-  {
-    if (elemen[index].info==IH)
+{
+    int listbaru, k;
+    cout << setw(43) << setfill('=') << ' ' << endl;
+    cout << "|" << setw(6) << setfill(' ') << ' ' << "SELAMAT DATANG DI MENU HAPUS" << setw(6) << setfill(' ') << ' ' << "|" << endl;
+    cout << setw(43) << setfill('=') << ' ' << endl;
+    cout << " Masukan angka : ";
+    cin >> IH;
+
+    bool found = false;
+
+    //------------------------ hapus di awal
+    if (IH == elemen[list].info)
     {
-      check=true; m=index;
+        listbaru = elemen[list].next;
+        k = kosong;
+        kosong = list;
+        list = listbaru;
+        elemen[kosong].next = k;
+        found = true;
     }
-    index=elemen[index].next;    
-  }
-  check=false;
-  for (index=list;check==false;)
-  {
-    if (elemen[index].next==m)
+    //------------------hapus di akhir
+    else if (IH == elemen[akhirlist].info)
     {
-      check=true;l=index;
+        elemen[akhirlist].next = kosong;
+        kosong = akhirlist;
+        elemen[akhirlist].info = 0;
+        for (int i = 1; i <= 10; i++)
+        {
+            if (elemen[i].next == akhirlist)
+            {
+                akhirlist = i;
+                elemen[akhirlist].next = 0;
+                found = true;
+                break;
+            }
+        }
     }
-    index=elemen[index].next;    
-  } 
-    elemen[l].next=elemen[m].next;
-    elemen[m].next=kosong;
-    kosong=m;
-  }
-  }
+    //------------------hapus di tengah
+    else
+    {
+        int index, after, before;
+        bool check = false;
+
+        for (index = list; index != 0;)
+        {
+            if (elemen[index].info == IH)
+            {
+                check = true;
+                after = index;
+            }
+            index = elemen[index].next;
+        }
+
+        if (check) // Jika ditemukan
+        {
+            check = false;
+            for (index = list; check == false;)
+            {
+                if (elemen[index].next == after)
+                {
+                    check = true;
+                    before = index;
+                }
+                index = elemen[index].next;
+            }
+
+            elemen[before].next = elemen[after].next;
+            elemen[after].next = kosong;
+            kosong = after;
+            found = true;
+        }
+    }
+
+    if (!found)
+    {
+        cout << "Bilangan tidak ditemukan." << endl;
+    }
+}
+
 
   
